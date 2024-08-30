@@ -1,113 +1,83 @@
-import { Box, Grid } from "@mui/material";
-import { useState, useEffect } from "react";
-import PropertyCard from "./property-card.component";
-import { IPropertyCard } from "../../../../../interfaces/property.interface";
+// import { Box, Grid, Typography } from "@mui/material";
+// import { useState, useEffect } from "react";
+// import PropertyCard from "./property-card.component";
+// import { toPropertyType } from "../../../../utilities/property_type";
+// import {IProperty}
 
-export default function PropertyGrid() {
-    const [properties, setProperties] = useState<IPropertyCard[]>([]);
+// export default function PropertyGrid() {
+//     const [properties, setProperties] = useState<IPropertyCard[]>([]);
+//     const [loading, setLoading] = useState<boolean>(true);
+//     const [error, setError] = useState<string | null>(null);
 
-    const fakeProperties: IPropertyCard[] = [
-        {
-            id: 1,
-            city: "Itagüí",
-            region: "Antioquia",
-            size: 54,
-            rooms: 3,
-            bathrooms: 2,
-            price: "$150,000,000",
-            type: "Apartamento"
-        },
-        {
-            id: 2,
-            city: "Medellín",
-            region: "Antioquia",
-            size: 80,
-            rooms: 2,
-            bathrooms: 1,
-            price: "$200,000,000",
-            type: "Casa"
-        },
-        {
-            id: 3,
-            city: "Envigado",
-            region: "Antioquia",
-            size: 60,
-            rooms: 3,
-            bathrooms: 2,
-            price: "$180,000,000",
-            type: "Apartamento"
-        },
-        {
-            id: 4,
-            city: "Sabaneta",
-            region: "Antioquia",
-            size: 45,
-            rooms: 1,
-            bathrooms: 1,
-            price: "$120,000,000",
-            type: "Local"
-        },
-        {
-            id: 5,
-            city: "Bello",
-            region: "Antioquia",
-            size: 100,
-            rooms: 4,
-            bathrooms: 3,
-            price: "$250,000,000",
-            type: "Casa"
-        },
-        {
-            id: 6,
-            city: "La Estrella",
-            region: "Antioquia",
-            size: 70,
-            rooms: 2,
-            bathrooms: 1,
-            price: "$170,000,000",
-            type: "Apartamento"
-        },
-        {
-            id: 7,
-            city: "Copacabana",
-            region: "Antioquia",
-            size: 35,
-            rooms: 1,
-            bathrooms: 1,
-            price: "$100,000,000",
-            type: "Local"
-        }
-    ];
-    
+//     useEffect(() => {
+//         const fetchProperties = async () => {
+//             try {
+//                 const response = await fetch('http://localhost:5000/api/properties');
 
-    useEffect(() => {
-        setProperties(fakeProperties);
-    }, []);
+//                 if (!response.ok) {
+//                     throw new Error('Network response was not ok');
+//                 }
 
-    return (
-        <Box width="100%" component="section" p="20px" position="relative">
-            {properties.length > 0 ? (
-                <Grid sx={{ flexGrow: 1 }} container spacing={2} columns={3}>
-                    {properties.map((property: IPropertyCard) => (
-                        <Grid
-                            key={property.id}
-                            item
-                            sx={{
-                                width: {
-                                    xs: "100%",
-                                    sm: "50%",
-                                    md: "25%",
-                                },
-                                minWidth: "200px",
-                            }}
-                        >
-                            <PropertyCard {...property} />
-                        </Grid>
-                    ))}
-                </Grid>
-            ) : (
-                <h3>No hay informacion que mostrar</h3>
-            )}
-        </Box>
-    );
-}
+//                 const result = await response.json();
+
+//                 if (Array.isArray(result.data)) {
+//                     const mappedData: IPropertyCard[] = result.data.map((item: any) => {
+//                         return {
+//                             id: item.id,
+//                             title: item.title,
+//                             address: item.address,
+//                             description: item.description,
+//                             city: item.city,
+//                             price: `$${item.price.toLocaleString()}`,
+//                             size: item.size,
+//                             bedrooms: item.bedrooms,
+//                             bathrooms: item.bathrooms,
+//                             propertyType: toPropertyType(item.propertyType), // Convierte a PropertyType
+//                         };
+//                     });
+
+//                     setProperties(mappedData);
+//                 } else {
+//                     throw new Error('Unexpected data structure');
+//                 }
+
+//             } catch (error) {
+//                 setError(error instanceof Error ? error.message : 'Unknown error occurred');
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchProperties();
+//     }, []);
+
+//     if (loading) return <Typography variant="h6">Loading...</Typography>;
+//     if (error) return <Typography variant="h6" color="error">{error}</Typography>;
+
+//     return (
+//         <Box width="100%" component="section" p="20px" position="relative">
+//             {properties.length > 0 ? (
+//                 <Grid sx={{ flexGrow: 1 }} container spacing={2} columns={3}>
+//                     {properties.map((property) => (
+//                         <Grid
+//                             key={property.id}
+//                             item
+//                             sx={{
+//                                 width: {
+//                                     xs: "100%",
+//                                     sm: "50%",
+//                                     md: "25%",
+//                                 },
+//                                 minWidth: "200px",
+//                             }}
+//                         >
+//                             <PropertyCard {...property} />
+//                         </Grid>
+//                     ))}
+//                 </Grid>
+//             ) : (
+//                 <Typography variant="h6">No hay información que mostrar</Typography>
+//             )}
+//         </Box>
+//     );
+// }

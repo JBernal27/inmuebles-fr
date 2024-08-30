@@ -15,8 +15,10 @@
     "@mui/icons-material": "^5.16.7",
     "@mui/joy": "^5.0.0-beta.48",
     "@mui/material": "^5.16.7",
+    "inmuebles-fr": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.53.0",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {

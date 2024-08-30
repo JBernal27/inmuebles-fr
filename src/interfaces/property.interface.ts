@@ -1,25 +1,19 @@
-export interface IProperty{
-    id:number
-    city:string
-    region:string
-    size: number
-    rooms: number
-    bathrooms: number
-    price: string
-    type: string
-    description: string
-    details: string[]
-    images: string[]
-    mapsLocation: string
+export interface IProperty {
+  title: string;
+  address: string;
+  description: string;
+  city: string;
+  deparment: string; // Corrige el nombre de "deparment" a "department"
+  neighborhood: string;
+  price: number;
+  size: number;
+  bedrooms: number;
+  bathrooms: number;
+  garage: number;
+  property_type_id: string; // Puede ser un número si se convierte a string en el frontend
+  owner_id: string;
+  status?: "ACTIVE" | "INACTIVE";
 }
 
-export interface IPropertyCard{
-    id:number
-    city:string
-    region:string
-    size: number
-    rooms: number
-    bathrooms: number
-    price: string
-    type: string
-}
+// property-card.component.tsx
+

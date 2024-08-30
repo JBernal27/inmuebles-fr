@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import headerImg from "../../../../../assets/images/header.jpg"
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function HeaderCreateProperty() {
     const navigate = useNavigate();
     return (
         <Box
@@ -21,10 +21,10 @@ export default function Header() {
                 gap: 2
             }}
         >
-            <Typography variant="h1">Encuentra tu hogar ideal</Typography>
+            <Typography variant="h1">Anuncia tu propiedad en arrendo de forma gratuita</Typography>
             <Typography variant="subtitle1">Ofrecemos las Mejores Propiedades en Arrendamiento para Cada Estilo de Vida y Presupuesto</Typography>
-            <Button variant="contained" color="primary" onClick={() => navigate('/create-property')}>
-        Crear Nueva Propiedad
+            <Button variant="contained" color="primary" onClick={() => navigate('/')}>
+        Back to home
       </Button>
 
         </Box>
