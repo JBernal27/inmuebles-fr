@@ -20,7 +20,7 @@ function App() {
       <JoyCssVarsProvider theme={joyTheme}>
         <CssBaseline enableColorScheme />
         <RoutesWithNotFound>
-          {/* <Route path={"/"} element={<Home />} /> */}
+           <Route path={"/"} element={<Home />} /> 
           <Route path={"/create-property"} element={<CreatePropertyPage />} />
         </RoutesWithNotFound>
       </JoyCssVarsProvider>
