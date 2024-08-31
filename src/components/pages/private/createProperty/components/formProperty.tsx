@@ -23,11 +23,12 @@ const FormProperty: React.FC = () => {
   const convertToFormData = (data: IProperty): FormData => {
     const formData = new FormData();
 
+    // Iterar sobre las propiedades del objeto IProperty
     Object.keys(data).forEach((key) => {
       const value = data[key as keyof IProperty];
 
       if (key === "image" && value instanceof FileList && value.length > 0) {
-        formData.append("image", value[0]);
+        formData.append("image", value[0]); // Agregar archivo al FormData
       } else if (typeof value === "string" || typeof value === "number") {
         formData.append(key, value.toString()); // Convertir a string si es necesario
       } else if (typeof value === "boolean") {
@@ -38,25 +39,28 @@ const FormProperty: React.FC = () => {
     return formData;
   };
 
+  // Manejo del formulario al enviarlo
   const onSubmit: SubmitHandler<IProperty> = async (data) => {
     const formData = convertToFormData(data);
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/properties",
-        {
-          method: "POST",
-          body: formData, 
-        }
-      );
-      if(response.ok){
-        const result = await response.json();
-        console.log("Success:", result);
-        alert("Property successfully created")
+      // Enviar los datos al servidor
+      const response = await fetch("http://localhost:5000/api/properties", {
+        method: "POST",
+        body: formData, // Enviar FormData sin especificar Content-Type
+      });
+
+      // Verificar si la respuesta es exitosa
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-     ;
+
+      const result = await response.json();
+      console.log("Success:", result);
+      alert("Property successfully created");
     } catch (error) {
       console.error("Error:", error);
+      alert("Failed to create property");
     }
   };
 
@@ -88,9 +92,9 @@ const FormProperty: React.FC = () => {
       {/* Title Field */}
       <TextField
         label="Title"
-        {...register("title", { required: true })}
+        {...register("title", { required: "This field is required" })}
         error={!!errors.title}
-        helperText={errors.title ? "This field is required" : ""}
+        helperText={errors.title?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -99,9 +103,9 @@ const FormProperty: React.FC = () => {
       {/* Address Field */}
       <TextField
         label="Address"
-        {...register("address", { required: true })}
+        {...register("address", { required: "This field is required" })}
         error={!!errors.address}
-        helperText={errors.address ? "This field is required" : ""}
+        helperText={errors.address?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -110,9 +114,9 @@ const FormProperty: React.FC = () => {
       {/* Description Field */}
       <TextField
         label="Description"
-        {...register("description", { required: true })}
+        {...register("description", { required: "This field is required" })}
         error={!!errors.description}
-        helperText={errors.description ? "This field is required" : ""}
+        helperText={errors.description?.message}
         fullWidth
         margin="normal"
         multiline
@@ -123,9 +127,9 @@ const FormProperty: React.FC = () => {
       {/* City Field */}
       <TextField
         label="City"
-        {...register("city", { required: true })}
+        {...register("city", { required: "This field is required" })}
         error={!!errors.city}
-        helperText={errors.city ? "This field is required" : ""}
+        helperText={errors.city?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -134,9 +138,9 @@ const FormProperty: React.FC = () => {
       {/* Department Field */}
       <TextField
         label="Department"
-        {...register("deparment", { required: true })}
+        {...register("deparment", { required: "This field is required" })}
         error={!!errors.deparment}
-        helperText={errors.deparment ? "This field is required" : ""}
+        helperText={errors.deparment?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -145,9 +149,9 @@ const FormProperty: React.FC = () => {
       {/* Neighborhood Field */}
       <TextField
         label="Neighborhood"
-        {...register("neighborhood", { required: true })}
+        {...register("neighborhood", { required: "This field is required" })}
         error={!!errors.neighborhood}
-        helperText={errors.neighborhood ? "This field is required" : ""}
+        helperText={errors.neighborhood?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -157,9 +161,12 @@ const FormProperty: React.FC = () => {
       <TextField
         label="Price"
         type="number"
-        {...register("price", { required: true, valueAsNumber: true })}
+        {...register("price", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
         error={!!errors.price}
-        helperText={errors.price ? "This field is required" : ""}
+        helperText={errors.price?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -169,9 +176,12 @@ const FormProperty: React.FC = () => {
       <TextField
         label="Size m2"
         type="number"
-        {...register("size", { required: true, valueAsNumber: true })}
+        {...register("size", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
         error={!!errors.size}
-        helperText={errors.size ? "This field is required" : ""}
+        helperText={errors.size?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -181,9 +191,12 @@ const FormProperty: React.FC = () => {
       <TextField
         label="Bedrooms"
         type="number"
-        {...register("bedrooms", { required: true, valueAsNumber: true })}
+        {...register("bedrooms", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
         error={!!errors.bedrooms}
-        helperText={errors.bedrooms ? "This field is required" : ""}
+        helperText={errors.bedrooms?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -193,9 +206,12 @@ const FormProperty: React.FC = () => {
       <TextField
         label="Bathrooms"
         type="number"
-        {...register("bathrooms", { required: true, valueAsNumber: true })}
+        {...register("bathrooms", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
         error={!!errors.bathrooms}
-        helperText={errors.bathrooms ? "This field is required" : ""}
+        helperText={errors.bathrooms?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -205,9 +221,12 @@ const FormProperty: React.FC = () => {
       <TextField
         label="Garage"
         type="number"
-        {...register("garage", { required: true, valueAsNumber: true })}
+        {...register("garage", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
         error={!!errors.garage}
-        helperText={errors.garage ? "This field is required" : ""}
+        helperText={errors.garage?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -219,7 +238,9 @@ const FormProperty: React.FC = () => {
         <Select
           label="Property Type ID"
           defaultValue=""
-          {...register("property_type_id", { required: true })}
+          {...register("property_type_id", {
+            required: "This field is required",
+          })}
           sx={{ borderRadius: 1 }}
         >
           <MenuItem value="" disabled>
@@ -230,16 +251,18 @@ const FormProperty: React.FC = () => {
           <MenuItem value="3">Office</MenuItem>
         </Select>
         {errors.property_type_id && (
-          <Typography color="error">This field is required</Typography>
+          <Typography color="error">
+            {errors.property_type_id.message}
+          </Typography>
         )}
       </FormControl>
 
       {/* Owner ID Field */}
       <TextField
         label="Owner ID"
-        {...register("owner_id", { required: true })}
+        {...register("owner_id", { required: "This field is required" })}
         error={!!errors.owner_id}
-        helperText={errors.owner_id ? "This field is required" : ""}
+        helperText={errors.owner_id?.message}
         fullWidth
         margin="normal"
         sx={{ borderRadius: 1 }}
@@ -250,7 +273,7 @@ const FormProperty: React.FC = () => {
         <InputLabel>Status</InputLabel>
         <Select
           label="Status"
-          defaultValue="ACTIVE"
+          defaultValue="available"
           {...register("status")}
           sx={{ borderRadius: 1 }}
         >
