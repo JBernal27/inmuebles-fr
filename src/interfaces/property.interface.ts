@@ -13,7 +13,9 @@ export interface IProperty {
   property_type_id: string; // Puede ser un número si se convierte a string en el frontend
   owner_id: string;
   status?: "ACTIVE" | "INACTIVE";
+  image?: FileList;
+
+
 }
 
 // property-card.component.tsx
-
