@@ -43,16 +43,18 @@ const FormProperty: React.FC = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/properties/create",
+        "http://localhost:5000/api/properties",
         {
           method: "POST",
-          body: formData, // No es necesario especificar Content-Type para FormData
+          body: formData, 
         }
       );
-
-      const result = await response.json();
-      console.log("Success:", result);
-      alert("Property successfully created");
+      if(response.ok){
+        const result = await response.json();
+        console.log("Success:", result);
+        alert("Property successfully created")
+      }
+     ;
     } catch (error) {
       console.error("Error:", error);
     }
@@ -69,7 +71,7 @@ const FormProperty: React.FC = () => {
         p: 3,
         borderRadius: 2,
         boxShadow: 3,
-        backgroundColor: "#f2e6d4",
+        backgroundColor: "#f5f5f5",
       }}
     >
       {/* Title */}
@@ -165,7 +167,7 @@ const FormProperty: React.FC = () => {
 
       {/* Size Field */}
       <TextField
-        label="Size"
+        label="Size m2"
         type="number"
         {...register("size", { required: true, valueAsNumber: true })}
         error={!!errors.size}
