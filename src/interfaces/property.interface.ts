@@ -17,5 +17,22 @@ export interface IProperty {
 
 
 }
+export enum PropertyType {
+  HOUSE = "house",
+  APARTMENT = "apartment",
+  OFFICE = "office"
+}
 
-// property-card.component.tsx
+export interface PropertyCardProps {
+  id: string;
+  title: string;
+  address: string;
+  description: string;
+  city: string;
+  price: string; // Precio como string para compatibilidad con IProperty
+  size: number;
+  bedrooms: number;
+  bathrooms: number;
+  propertyType: PropertyType;
+}
+
