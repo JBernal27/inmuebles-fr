@@ -1,11 +1,11 @@
 // components/property-grid.component.tsx
-import React, { useState, useEffect } from 'react';
-import PropertyCard from './property-card.component';
-import { toPropertyType } from '../../../../utilities/property_type';
-import { IProperty } from '../../../../../interfaces/property.interface';
-import { PropertyType } from '../../../../../interfaces/property.interface'; // Asegúrate de importar PropertyType
-import { Box, Grid } from '@mui/material';
-import { PropertyCardProps } from '../../../../../interfaces/property.interface';
+
+import React, { useState, useEffect } from "react";
+import PropertyCard from "./property-card.component";
+import { toPropertyType } from "../../../../utilities/property_type";
+import { IProperty } from "../../../../../interfaces/property.interface";
+import { PropertyType } from "../../../../../interfaces/property.interface";
+import { Box, Grid } from "@mui/material";
 
 interface PropertyCardData {
   id: string;
@@ -18,6 +18,7 @@ interface PropertyCardData {
   bedrooms: number;
   bathrooms: number;
   propertyType: PropertyType;
+  imageUrl: string;
 }
 
 const PropertyGrid: React.FC = () => {
@@ -28,36 +29,42 @@ const PropertyGrid: React.FC = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/properties');
+        const response = await fetch("http://localhost:5000/api/properties");
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
 
         const result = await response.json();
         console.log(result.data);
 
         if (Array.isArray(result.data)) {
-          const mappedData: PropertyCardData[] = result.data.map((item: IProperty) => ({
-            id: item.owner_id, // Asume que `owner_id` es el identificador único
-            title: item.title,
-            address: item.address,
-            description: item.description,
-            city: item.city,
-            price: `$${item.price.toLocaleString()}`,
-            size: item.size,
-            bedrooms: item.bedrooms,
-            bathrooms: item.bathrooms,
-            propertyType: toPropertyType(item.property_type_id) as PropertyType // Asegúrate de que `toPropertyType` devuelva un tipo válido
-          }));
+          const mappedData: PropertyCardData[] = result.data.map(
+            (item: IProperty) => ({
+              id: item.id, // Usa `item.id` como identificador único
+              title: item.title,
+              address: item.address,
+              description: item.description,
+              city: item.city,
+              price: `$${item.price.toLocaleString()}`,
+              size: item.size,
+              bedrooms: item.bedrooms,
+              bathrooms: item.bathrooms,
+              propertyType: toPropertyType(
+                item.property_type_id
+              ) as PropertyType,
+              imageUrl: item.media.length > 0 ? item.media[0].url : "", // Usa la primera imagen o una cadena vacía si no hay imágenes
+            })
+          );
 
           setProperties(mappedData);
         } else {
-          throw new Error('Unexpected data structure');
+          throw new Error("Unexpected data structure");
         }
-
       } catch (error) {
-        setError(error instanceof Error ? error.message : 'Unknown error occurred');
+        setError(
+          error instanceof Error ? error.message : "Unknown error occurred"
+        );
       } finally {
         setLoading(false);
       }
@@ -67,33 +74,33 @@ const PropertyGrid: React.FC = () => {
   }, []);
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <Box width="100%" component="section" p="20px" position="relative">
-            {properties.length > 0 ? (
-                <Grid sx={{ flexGrow: 1 }} container spacing={2} columns={3}>
-                    {properties.map((property:  PropertyCardProps) => (
-                        <Grid
-                            key={property.id}
-                            item
-                            sx={{
-                                width: {
-                                    xs: "100%",
-                                    sm: "50%",
-                                    md: "33.33%",
-                                },
-                                minWidth: "200px",
-                            }}
-                        >
-                            <PropertyCard {...property} />
-                        </Grid>
-                    ))}
-                </Grid>
-            ) : (
-                <h3>No hay informacion que mostrar</h3>
-            )}
- </Box>
+      {properties.length > 0 ? (
+        <Grid sx={{ flexGrow: 1 }} container spacing={2} columns={3}>
+          {properties.map((property: PropertyCardData) => (
+            <Grid
+              key={property.id}
+              item
+              sx={{
+                width: {
+                  xs: "100%",
+                  sm: "50%",
+                  md: "33.33%",
+                },
+                minWidth: "200px",
+              }}
+            >
+              <PropertyCard {...property} />
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <h3>No hay información que mostrar</h3>
+      )}
+    </Box>
   );
 };
 
