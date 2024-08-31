@@ -1,26 +1,33 @@
+// interfaces/property.interface.ts
+
 export interface IProperty {
+  id: string; // Agrega el campo `id` si no existe
   title: string;
-  address: string;
   description: string;
+  address: string;
   city: string;
-  deparment: string; // Corrige el nombre de "deparment" a "department"
-  neighborhood: string;
-  price: number;
+  deparment:string
+  neighborhood:string
+  price: number; // Asegúrate de que el tipo sea correcto
   size: number;
   bedrooms: number;
   bathrooms: number;
   garage: number;
-  property_type_id: string; // Puede ser un número si se convierte a string en el frontend
-  owner_id: string;
   status?: "ACTIVE" | "INACTIVE";
-  image?: FileList;
-
-
+  property_type_id: string;
+  owner_id: string;
+  image: FileList
+  media: {
+    // Asegúrate de que esta estructura coincida con tus datos
+    url: string;
+    media_type: string;
+  }[];
 }
+
 export enum PropertyType {
   HOUSE = "house",
   APARTMENT = "apartment",
-  OFFICE = "office"
+  OFFICE = "office",
 }
 
 export interface PropertyCardProps {
@@ -29,10 +36,10 @@ export interface PropertyCardProps {
   address: string;
   description: string;
   city: string;
-  price: string; // Precio como string para compatibilidad con IProperty
+  price: string;
   size: number;
   bedrooms: number;
   bathrooms: number;
   propertyType: PropertyType;
+  imageUrl: string; // Asegúrate de que esta propiedad esté incluida
 }
-
