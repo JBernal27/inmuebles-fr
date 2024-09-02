@@ -1,15 +1,27 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import {
+  Box,
+  Grid,
   TextField,
   Button,
-  MenuItem,
-  Box,
-  Typography,
-  Select,
   FormControl,
   InputLabel,
+  Select,
+  MenuItem,
+  InputAdornment,
+  Typography,
 } from "@mui/material";
+import {
+  Description,
+  BedroomParent,
+  Bathroom,
+  Garage,
+  Home,
+  LocationCity,
+  AttachMoney,
+  Store,
+} from "@mui/icons-material";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { IProperty } from "../../../../../interfaces/property.interface";
 
 const FormProperty: React.FC = () => {
@@ -69,13 +81,12 @@ const FormProperty: React.FC = () => {
       component="form"
       onSubmit={handleSubmit(onSubmit)}
       sx={{
-        maxWidth: 600,
+        maxWidth: 1000,
         mx: "auto",
-        mt: 4,
+        mt: 10,
         p: 3,
         borderRadius: 2,
         boxShadow: 3,
-        backgroundColor: "#f2e6d4",
       }}
     >
       {/* Title */}
@@ -84,226 +95,307 @@ const FormProperty: React.FC = () => {
         component="h2"
         gutterBottom
         align="center"
-        sx={{ color: "#1976d2", mb: 2 }}
+        sx={{ color: "", mb: 2, fontWeight: "bold", fontSize: 35 , marginBottom: 7}}
       >
         Create Property
       </Typography>
 
-      {/* Title Field */}
-      <TextField
-        label="Title"
-        {...register("title", { required: "This field is required" })}
-        error={!!errors.title}
-        helperText={errors.title?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+      <Grid container spacing={2}>
+        {/* Title Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Title"
+            fullWidth
+            {...register("title", { required: "This field is required" })}
+            error={!!errors.title}
+            helperText={errors.title?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Home />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Address Field */}
-      <TextField
-        label="Address"
-        {...register("address", { required: "This field is required" })}
-        error={!!errors.address}
-        helperText={errors.address?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Address Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Address"
+            fullWidth
+            {...register("address", { required: "This field is required" })}
+            error={!!errors.address}
+            helperText={errors.address?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationCity />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Description Field */}
-      <TextField
-        label="Description"
-        {...register("description", { required: "This field is required" })}
-        error={!!errors.description}
-        helperText={errors.description?.message}
-        fullWidth
-        margin="normal"
-        multiline
-        rows={3}
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Description Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Description"
+            fullWidth
+            multiline
+            rows={1}
+            {...register("description", { required: "This field is required" })}
+            error={!!errors.description}
+            helperText={errors.description?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Description />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* City Field */}
-      <TextField
-        label="City"
-        {...register("city", { required: "This field is required" })}
-        error={!!errors.city}
-        helperText={errors.city?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* City Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="City"
+            fullWidth
+            {...register("city", { required: "This field is required" })}
+            error={!!errors.city}
+            helperText={errors.city?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationCity />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Department Field */}
-      <TextField
-        label="Department"
-        {...register("deparment", { required: "This field is required" })}
-        error={!!errors.deparment}
-        helperText={errors.deparment?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Department Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Department"
+            fullWidth
+            {...register("deparment", { required: "This field is required" })}
+            error={!!errors.deparment}
+            helperText={errors.deparment?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Store />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Neighborhood Field */}
-      <TextField
-        label="Neighborhood"
-        {...register("neighborhood", { required: "This field is required" })}
-        error={!!errors.neighborhood}
-        helperText={errors.neighborhood?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Neighborhood Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Neighborhood"
+            fullWidth
+            {...register("neighborhood", {
+              required: "This field is required",
+            })}
+            error={!!errors.neighborhood}
+            helperText={errors.neighborhood?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationCity />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Price Field */}
-      <TextField
-        label="Price"
-        type="number"
-        {...register("price", {
-          required: "This field is required",
-          valueAsNumber: true,
-        })}
-        error={!!errors.price}
-        helperText={errors.price?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Price Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Price"
+            type="number"
+            fullWidth
+            {...register("price", {
+              required: "This field is required",
+              valueAsNumber: true,
+            })}
+            error={!!errors.price}
+            helperText={errors.price?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AttachMoney />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Size Field */}
-      <TextField
-        label="Size"
-        type="number"
-        {...register("size", {
-          required: "This field is required",
-          valueAsNumber: true,
-        })}
-        error={!!errors.size}
-        helperText={errors.size?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Size Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Size"
+            type="number"
+            fullWidth
+            {...register("size", {
+              required: "This field is required",
+              valueAsNumber: true,
+            })}
+            error={!!errors.size}
+            helperText={errors.size?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Store />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Bedrooms Field */}
-      <TextField
-        label="Bedrooms"
-        type="number"
-        {...register("bedrooms", {
-          required: "This field is required",
-          valueAsNumber: true,
-        })}
-        error={!!errors.bedrooms}
-        helperText={errors.bedrooms?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Bedrooms Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Bedrooms"
+            type="number"
+            fullWidth
+            {...register("bedrooms", {
+              required: "This field is required",
+              valueAsNumber: true,
+            })}
+            error={!!errors.bedrooms}
+            helperText={errors.bedrooms?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <BedroomParent />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Bathrooms Field */}
-      <TextField
-        label="Bathrooms"
-        type="number"
-        {...register("bathrooms", {
-          required: "This field is required",
-          valueAsNumber: true,
-        })}
-        error={!!errors.bathrooms}
-        helperText={errors.bathrooms?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Bathrooms Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Bathrooms"
+            type="number"
+            fullWidth
+            {...register("bathrooms", {
+              required: "This field is required",
+              valueAsNumber: true,
+            })}
+            error={!!errors.bathrooms}
+            helperText={errors.bathrooms?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Bathroom />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Garage Field */}
-      <TextField
-        label="Garage"
-        type="number"
-        {...register("garage", {
-          required: "This field is required",
-          valueAsNumber: true,
-        })}
-        error={!!errors.garage}
-        helperText={errors.garage?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Garage Field */}
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Garage"
+            type="number"
+            fullWidth
+            {...register("garage", {
+              required: "This field is required",
+              valueAsNumber: true,
+            })}
+            error={!!errors.garage}
+            helperText={errors.garage?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Garage />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Property Type ID Field */}
-      <FormControl fullWidth margin="normal" error={!!errors.property_type_id}>
-        <InputLabel>Property Type ID</InputLabel>
-        <Select
-          label="Property Type ID"
-          defaultValue=""
-          {...register("property_type_id", {
-            required: "This field is required",
-          })}
-          sx={{ borderRadius: 1 }}
-        >
-          <MenuItem value="" disabled>
-            Select a property type
-          </MenuItem>
-          <MenuItem value="1">House</MenuItem>
-          <MenuItem value="2">Apartment</MenuItem>
-          <MenuItem value="3">Office</MenuItem>
-        </Select>
-        {errors.property_type_id && (
-          <Typography color="error">
-            {errors.property_type_id.message}
-          </Typography>
-        )}
-      </FormControl>
+        {/* Owner ID Field */}
+        <Grid item xs={6}>
+          <TextField
+            label="Owner"
+            fullWidth
+            {...register("owner_id", { required: "This field is required" })}
+            error={!!errors.owner_id}
+            helperText={errors.owner_id?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-      {/* Owner ID Field */}
-      <TextField
-        label="Owner ID"
-        {...register("owner_id", { required: "This field is required" })}
-        error={!!errors.owner_id}
-        helperText={errors.owner_id?.message}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
+        {/* Property Type ID Field */}
+        <Grid item xs={12}>
+          <FormControl
+            fullWidth
+            margin="normal"
+            error={!!errors.property_type_id}
+          >
+            <InputLabel>Property Type ID</InputLabel>
+            <Select
+              label="Property Type ID"
+              defaultValue=""
+              {...register("property_type_id", {
+                required: "This field is required",
+              })}
+            >
+              <MenuItem value="" disabled>
+                Select a property type
+              </MenuItem>
+              <MenuItem value="1">House</MenuItem>
+              <MenuItem value="2">Apartment</MenuItem>
+              <MenuItem value="3">Office</MenuItem>
+            </Select>
+            {errors.property_type_id && (
+              <Typography color="error">
+                {errors.property_type_id.message}
+              </Typography>
+            )}
+          </FormControl>
+        </Grid>
 
-      {/* Status Field */}
-      <FormControl fullWidth margin="normal">
-        <InputLabel>Status</InputLabel>
-        <Select
-          label="Status"
-          defaultValue="available"
-          {...register("status")}
-          sx={{ borderRadius: 1 }}
-        >
-          <MenuItem value="available">Available</MenuItem>
-          <MenuItem value="reforms">Reforms</MenuItem>
-          <MenuItem value="rented">Rented</MenuItem>
-        </Select>
-      </FormControl>
+        {/* Image Field */}
+        <Grid item xs={12}>
+          <TextField
+            label="Image"
+            type="file"
+            fullWidth
+            {...register("image")}
+            error={!!errors.image}
+            helperText={errors.image?.message}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Description />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+      </Grid>
 
-      {/* Image Field */}
-      <TextField
-        type="file"
-        {...register("image")}
-        error={!!errors.image}
-        helperText={errors.image ? "This field is required" : ""}
-        fullWidth
-        margin="normal"
-        sx={{ borderRadius: 1 }}
-      />
-
-      {/* Submit Button */}
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        fullWidth
-        sx={{ mt: 3, py: 1.5, borderRadius: 1 }}
-      >
-        Create Property
-      </Button>
+      <Box textAlign="center" mt={4}>
+        <Button type="submit" variant="contained" color="primary">
+          Submit
+        </Button>
+      </Box>
     </Box>
   );
 };

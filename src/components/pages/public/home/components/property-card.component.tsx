@@ -1,7 +1,4 @@
-// components/property-card.component.tsx
-
 import React from "react";
-import { PropertyCardProps } from "../../../../../interfaces/property.interface";
 import AspectRatio from "@mui/joy/AspectRatio";
 import Button from "@mui/joy/Button";
 import Card from "@mui/joy/Card";
@@ -13,7 +10,21 @@ import BedIcon from "@mui/icons-material/Bed";
 import BathroomOutlinedIcon from "@mui/icons-material/BathroomOutlined";
 import { Box } from "@mui/material";
 
+interface PropertyCardProps {
+  id: string;
+  title: string;
+  city: string;
+  price: string;
+  size: number;
+  bedrooms: number;
+  bathrooms: number;
+  propertyType: string;
+  imageUrl: string;
+  onSeeMore: (id: string) => void;
+}
+
 const PropertyCard: React.FC<PropertyCardProps> = ({
+  id,
   title,
   city,
   price,
@@ -21,7 +32,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   bedrooms,
   bathrooms,
   propertyType,
-  imageUrl, // Usa esta prop
+  imageUrl,
+  onSeeMore,
 }) => {
   return (
     <Card sx={{ width: "100%", height: "350px" }}>
@@ -73,6 +85,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           color="neutral"
           aria-label="Ver Más"
           sx={{ alignSelf: "center", fontWeight: 600, width: "40%" }}
+          onClick={() => onSeeMore(id)} 
         >
           Ver Más
         </Button>

@@ -41,5 +41,7 @@ export interface PropertyCardProps {
   bedrooms: number;
   bathrooms: number;
   propertyType: PropertyType;
-  imageUrl: string; // Asegúrate de que esta propiedad esté incluida
+  imageUrl: string;
+   // Asegúrate de que esta propiedad esté incluida
 }
+
