@@ -87,6 +87,8 @@ const FormProperty: React.FC = () => {
         p: 3,
         borderRadius: 2,
         boxShadow: 3,
+
+        backgroundColor: "#f5f5f5",
       }}
     >
       {/* Title */}
@@ -235,6 +237,7 @@ const FormProperty: React.FC = () => {
           />
         </Grid>
 
+
         {/* Size Field */}
         <Grid item xs={12} sm={6}>
           <TextField
@@ -256,6 +259,21 @@ const FormProperty: React.FC = () => {
             }}
           />
         </Grid>
+        
+      {/* Size Field */}
+      <TextField
+        label="Size m2"
+        type="number"
+        {...register("size", {
+          required: "This field is required",
+          valueAsNumber: true,
+        })}
+        error={!!errors.size}
+        helperText={errors.size?.message}
+        fullWidth
+        margin="normal"
+        sx={{ borderRadius: 1 }}
+      />
 
         {/* Bedrooms Field */}
         <Grid item xs={12} sm={6}>
