@@ -1,11 +1,10 @@
-// components/property-grid.component.tsx
-
 import React, { useState, useEffect } from "react";
 import PropertyCard from "./property-card.component";
 import { toPropertyType } from "../../../../utilities/property_type";
 import { IProperty } from "../../../../../interfaces/property.interface";
 import { PropertyType } from "../../../../../interfaces/property.interface";
 import { Box, Grid } from "@mui/material";
+import ModalComponent from "./seeMore.component"; // Importa el componente del modal
 
 interface PropertyCardData {
   id: string;
@@ -25,6 +24,9 @@ const PropertyGrid: React.FC = () => {
   const [properties, setProperties] = useState<PropertyCardData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedProperty, setSelectedProperty] =
+    useState<PropertyCardData | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -41,7 +43,7 @@ const PropertyGrid: React.FC = () => {
         if (Array.isArray(result.data)) {
           const mappedData: PropertyCardData[] = result.data.map(
             (item: IProperty) => ({
-              id: item.id, // Usa `item.id` como identificador único
+              id: item.id,
               title: item.title,
               address: item.address,
               description: item.description,
@@ -53,7 +55,7 @@ const PropertyGrid: React.FC = () => {
               propertyType: toPropertyType(
                 item.property_type_id
               ) as PropertyType,
-              imageUrl: item.media.length > 0 ? item.media[0].url : "", // Usa la primera imagen o una cadena vacía si no hay imágenes
+              imageUrl: item.media.length > 0 ? item.media[0].url : "",
             })
           );
 
@@ -73,6 +75,18 @@ const PropertyGrid: React.FC = () => {
     fetchProperties();
   }, []);
 
+  const handleSeeMore = (id: string) => {
+    const property = properties.find((prop) => prop.id === id);
+    if (property) {
+      setSelectedProperty(property);
+      setModalOpen(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
@@ -80,7 +94,7 @@ const PropertyGrid: React.FC = () => {
     <Box width="100%" component="section" p="20px" position="relative">
       {properties.length > 0 ? (
         <Grid sx={{ flexGrow: 1 }} container spacing={2} columns={3}>
-          {properties.map((property: PropertyCardData) => (
+          {properties.map((property) => (
             <Grid
               key={property.id}
               item
@@ -93,12 +107,19 @@ const PropertyGrid: React.FC = () => {
                 minWidth: "200px",
               }}
             >
-              <PropertyCard {...property} />
+              <PropertyCard {...property} onSeeMore={handleSeeMore} />
             </Grid>
           ))}
         </Grid>
       ) : (
         <h3>No hay información que mostrar</h3>
+      )}
+      {selectedProperty && (
+        <ModalComponent
+          open={modalOpen}
+          onClose={handleCloseModal}
+          property={selectedProperty}
+        />
       )}
     </Box>
   );
