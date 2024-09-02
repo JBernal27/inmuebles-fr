@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# Proyecto de React con TypeScript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web desarrollada con React y TypeScript. A continuación, se detalla la estructura de los archivos y directorios del proyecto.
 
-Currently, two official plugins are available:
+## Estructura del Proyecto
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+node_modules/               # Dependencias del proyecto
+src/                        # Carpeta principal del código fuente
+├── assets/                 # Archivos estáticos (imágenes, fuentes, etc.)
+├── components/             # Componentes reutilizables de la aplicación
+├── pages/                  # Páginas principales del proyecto
+│   ├── private/            # Páginas privadas (requieren autenticación)
+│   │   ├── createProperty/ 
+│   │   │   ├── components/          # Componentes específicos de CreateProperty
+│   │   │   └── CreatePropertyPage.tsx # Página para crear propiedades
+│   ├── public/             # Páginas públicas
+│   │   ├── home/ 
+│   │   │   ├── components/          # Componentes específicos de Home
+│   │   │   └── home.page.tsx        # Página de inicio
+├── utilities/              # Utilidades y funciones auxiliares
+├── interfaces/             # Definiciones de interfaces TypeScript
+│   └── property.interface.ts # Interfaz para la entidad "Property"
+├── App.tsx                 # Componente principal de la aplicación
+├── App.css                 # Estilos globales de la aplicación
+├── index.tsx               # Punto de entrada de la aplicación
+├── index.css               # Estilos globales
+├── main.tsx                # Configuración principal de la aplicación
+├── theme.ts                # Definición del tema y estilos globales
+├── vite-env.d.ts           # Configuración de tipos para Vite
+.gitignore                  # Archivos y carpetas ignoradas por Git
+eslint.config.js            # Configuración de ESLint
+index.html                  # Archivo HTML principal
+package-lock.json           # Control de versiones de las dependencias
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Instalación
+
+1. Clona el repositorio.
+2. Navega al directorio del proyecto.
+3. Ejecuta `npm install` para instalar las dependencias.
+
+## Scripts Disponibles
+
+- `npm dev` - Inicia la aplicación en modo de desarrollo.
+
